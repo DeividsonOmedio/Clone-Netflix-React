@@ -1,94 +1,58 @@
-import { React, useEffect, useState } from 'react';
-import Tmdb from '../database/Tmdb';
-import FeaturedMovie from '../components/FeaturedMovie';
-import Header from '../components/Header';
-import StartNetflix from '../components/StartNetflix';
-import Loading from '../components/Loading';
-import Movies from '../components/Movies';
-import Footer from '../components/Footer';
-import Head from 'next/head';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import styles from '../styles/login.module.scss';
 
-export default function Home() {
-  const [movieList, setMovieList] = useState([]);
-  const [featuredData, setFeatureData] = useState(null);
-  const [blackHeader, setBlackHeader] = useState(false);
-  const [startNetflix, setStartNetflix] = useState(false);
-  const [releasedMovies, setReleasedMovies] = useState(false);
- 
-  useEffect(() => {
-    const loadAll = async () => {
-      let list = await Tmdb.getHomeList();
-      setMovieList(list);
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
 
-      let originals = list.filter(value => value.slug === 'originals');
-      let randomChosen = Math.floor(Math.random() * (originals[0].items.results.length - 1));
-      let chosen = originals[0].items.results[randomChosen];
-      let chosenInfo = await Tmdb.getMovieInfo(chosen.id, 'tv');
-      setFeatureData(chosenInfo);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      // Set Loader Start Netflix
-      if(list.length > 0) {
-        setStartNetflix(true);
-    
-        setTimeout(function() {
-          setStartNetflix(false); 
-          setReleasedMovies(true); 
-        }, 4000);
-      }
+    if (email && password) {
+      router.push('/home');
+    } else {
+      alert('Por favor, preencha todos os campos.');
     }
-
-    loadAll();
-  }, []);
-
-  useEffect(() => {
-    const scrollListener = () => {
-      if(window.scrollY > 10) {
-        setBlackHeader(true);
-      } else {
-        setBlackHeader(false);
-      }
-    }
-
-    window.addEventListener('scroll', scrollListener);
-    return () => {
-      window.removeEventListener('scroll', scrollListener);
-    }
-  }, []);
+  };
 
   return (
-    <div className="page">
-      <Head>
-        <title>Netflix Brasil - assistir a séries online, assistir a filmes online</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      {releasedMovies &&
-        <>
-          <Header black={blackHeader}/>
-
-          {featuredData &&
-            <FeaturedMovie item={featuredData}/>
-          }
-
-          <section className="lists">
-            <Movies items={movieList}/>
-          </section>
-
-          <Footer />
-        </>
-      }
-
-      {startNetflix && 
-        <div className="loading"> 
-          <StartNetflix />
-        </div> 
-      }    
-
-      {movieList.length <= 0 && 
-        <div className="loading">
-          <Loading />
+    <div className={styles.loginContainer}>
+      <div className={styles.headerLogo}>
+        <a>
+          <img src="/logo.png" alt="Logo Netflix" className={styles.logoImage}/>
+        </a>                                
+      </div>
+      <div className={styles.loginContent}>
+        <h1>Entrar</h1>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.inputContainer}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className={styles.loginButton}>Entrar</button>
+        </form>
+        <div className={styles.signupLink}>
+          <p>Novo por aqui? <a href="#">Assine agora</a>.</p>
         </div>
-      }
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default Login;
