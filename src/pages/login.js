@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../login/login.module.scss';
+import styles from '../styles/login.module.scss';
 
 const Login = () => {
   const [email, setEmail] = useState('');
