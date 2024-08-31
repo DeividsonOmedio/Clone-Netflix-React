@@ -2,11 +2,9 @@
   <img src="https://github.com/gustavo-nt/netflix-clone/blob/master/public/logo.png" alt="logo" height="75"/>
 </h4>
 
-<h1 align="center">
-    🚀 UI Clone
-</h1>
 
-<p align="center">Aplicação UI Clone Netflix</p>
+
+<p align="center">Aplicação Clone Netflix</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/react%20version-16.8.0-informational"/>
@@ -38,7 +36,6 @@
 
 ### 💻 Projeto
 
-UI Clone do serviço de streaming - Netflix, com o uso da API fornecida pelo The Movie Database. Esse Projeto foi desenvolvido durante a live ministrada pelo professor Boenick Lacerda. 
 
 ### ✅ Demonstração
 <img src="https://github.com/gustavo-nt/netflix-clone/blob/master/public/github/featured_movie.png" />
@@ -87,11 +84,8 @@ Esse projeto foi utilizou das seguintes lib e/ou pré-processadores:
 
 Todos direitos são reservados a Netflix e ao The Movie Database.
 
-### 📝 Licença
-
-Esse projeto está sob a licença MIT.
 
 <hr/>
 
-Feito por Gustavo Teixeira
+Feito por Deividson Coelho
 # Clone-Netflix-React
